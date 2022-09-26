@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
-import LinearProgress from "@mui/material/LinearProgress";
+import { Button } from "@mui/material";
+// import LinearProgress from "@mui/material/LinearProgress";
 
 function App() {
   const [percentage, setPercentage] = useState(0);
   const [progress, setProgress] = useState(null);
 
+  // https://www.webtips.dev/how-to-make-a-download-progress-indicator-in-react
   const download = () => {
     const documentStyles = document.documentElement.style;
     let progress = 0;
@@ -16,6 +18,7 @@ function App() {
     axios({
       url: "https://www.placecage.com/3499/3499",
       onDownloadProgress(progressEvent) {
+        console.log("starting download...");
         progress = Math.round(
           (progressEvent.loaded / progressEvent.total) * 100
         );
@@ -25,12 +28,16 @@ function App() {
         documentStyles.setProperty("--progress", `${progress}%`);
       },
     }).then((response) => {
+      console.log("download finished!");
       setProgress("finished");
     });
   };
 
   return (
-    <LinearProgress variant="determinate" value={progress} />
+    <div>
+      <Button onClick={download}>download</Button>
+    </div>
+    // <LinearProgress variant="determinate" value={progress} />
 
     // <div className={`progress-button ${progress}`}>
     //     <span className="loading-text">Loading</span>
