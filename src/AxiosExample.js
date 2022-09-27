@@ -16,7 +16,8 @@ const CSVDownloadType = {
 export const AxiosExample = () => {
   const downloadCsvFile = (url) => {
     console.log("downloading file...");
-    console.time("timer");
+    // console.time("timer");
+    const start = Date.now();
 
     axios({
       // 1  Event Details Page
@@ -39,7 +40,9 @@ export const AxiosExample = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(href);
       console.log("download finished!");
-      console.timeEnd("timer"); // divide by 1000
+      // console.timeEnd("timer");
+      const end = Date.now();
+      console.log(`Time elapsed:  ${(end - start) / 1000} seconds`);
     });
   };
 
