@@ -4,6 +4,15 @@ import IconFileFill from "@zoom/sun-ui-icon/dist/cjs/IconFileFill";
 import axios from "axios";
 import { Button } from "@mui/material";
 
+const tenThousand = "rfdf_zFfQjS7l4HUcck2Ng";
+const thirtyThousand = "AbGqhiAeTDeUhq5yNPENjQ";
+const oneHundredThousand = "ROzwtfXAQP6-IJueEDNoWw";
+
+const CSVDownloadType = {
+  EVENT_DETAIL: 1,
+  REGISTRATION_REPORT: 9,
+};
+
 export const AxiosExample = () => {
   const downloadCsvFile = (url) => {
     console.log("downloading file...");
@@ -12,7 +21,7 @@ export const AxiosExample = () => {
     axios({
       // 1  Event Details Page
       // 9  Registration Report
-      url: "http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/AbGqhiAeTDeUhq5yNPENjQ?csvType=9", //your url
+      url: `http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/${thirtyThousand}?csvType=${CSVDownloadType.EVENT_DETAIL}`, //your url
       method: "GET",
       responseType: "blob", // important
     }).then((response) => {
@@ -30,7 +39,7 @@ export const AxiosExample = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(href);
       console.log("download finished!");
-      console.timeEnd("timer");
+      console.timeEnd("timer"); // divide by 1000
     });
   };
 
