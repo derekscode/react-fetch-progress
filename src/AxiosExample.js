@@ -4,9 +4,9 @@ import IconFileFill from "@zoom/sun-ui-icon/dist/cjs/IconFileFill";
 import axios from "axios";
 import { Button } from "@mui/material";
 
-const tenThousand = "rfdf_zFfQjS7l4HUcck2Ng";
-const thirtyThousand = "AbGqhiAeTDeUhq5yNPENjQ";
-const oneHundredThousand = "ROzwtfXAQP6-IJueEDNoWw";
+const tenThousand = "rfdf_zFfQjS7l4HUcck2Ng"; // 12 seconds
+const thirtyThousand = "AbGqhiAeTDeUhq5yNPENjQ"; // 47 seconds
+const oneHundredThousand = "ROzwtfXAQP6-IJueEDNoWw"; // x seconds
 
 const CSVDownloadType = {
   EVENT_DETAIL: 1,
@@ -22,7 +22,7 @@ export const AxiosExample = () => {
     axios({
       // 1  Event Details Page
       // 9  Registration Report
-      url: `http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/${thirtyThousand}?csvType=${CSVDownloadType.EVENT_DETAIL}`, //your url
+      url: `http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/${thirtyThousand}?csvType=${CSVDownloadType.REGISTRATION_REPORT}`, //your url
       method: "GET",
       responseType: "blob", // important
     }).then((response) => {
