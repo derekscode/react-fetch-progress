@@ -8,11 +8,6 @@ export const AxiosExample = () => {
   const downloadCsvFile = (url) => {
     console.log({ url });
     if (url) {
-      Toast.info({
-        content: "downloading file",
-        duration: 3000,
-        closable: true,
-      });
       const link = document.createElement("a");
       link.href = url;
       document.body.appendChild(link);
@@ -28,13 +23,18 @@ export const AxiosExample = () => {
     method: "GET",
     responseType: "blob", // important
   }).then((response) => {
+    Toast.info({
+      content: "downloading file",
+      duration: 3000,
+      closable: true,
+    });
     // create file link in browser's memory
     const href = URL.createObjectURL(response.data);
 
     // create "a" HTLM element with href to file & click
     const link = document.createElement("a");
     link.href = href;
-    link.setAttribute("download", "file.pdf"); //or any other extension
+    // link.setAttribute("download", "file.pdf"); //or any other extension
     document.body.appendChild(link);
     link.click();
 
@@ -42,6 +42,6 @@ export const AxiosExample = () => {
     document.body.removeChild(link);
     URL.revokeObjectURL(href);
   });
-
-  return <Button>Download Csv</Button>;
+  return "text";
+  // return <Button>Download Csv</Button>;
 };
