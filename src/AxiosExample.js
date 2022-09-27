@@ -22,14 +22,14 @@ export const AxiosExample = () => {
       duration: 0,
       closable: true,
       icon: <IconFileFill style={{ color: "#0E72ED" }} />,
-      key: "unique key for this download toast",
+      key: "unique key",
     });
     const start = Date.now();
 
     axios({
       // 1  Event Details Page
       // 9  Registration Report
-      url: `http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/${oneHundredThousand}?csvType=${CSVDownloadType.REGISTRATION_REPORT}`, //your url
+      url: `http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/${tenThousand}?csvType=${CSVDownloadType.REGISTRATION_REPORT}`, //your url
       method: "GET",
       responseType: "blob", // important
     }).then((response) => {
@@ -46,8 +46,9 @@ export const AxiosExample = () => {
       // clean up "a" element & remove ObjectURL
       document.body.removeChild(link);
       URL.revokeObjectURL(href);
-      console.log("download finished!");
 
+      console.log("download finished!");
+      Toast.destroy("unique key");
       const end = Date.now();
       console.log(`Time elapsed:  ${(end - start) / 1000} seconds`);
     });
