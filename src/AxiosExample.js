@@ -6,42 +6,33 @@ import { Button } from "@mui/material";
 
 export const AxiosExample = () => {
   const downloadCsvFile = (url) => {
-    console.log({ url });
-    if (url) {
+    console.log("downloading file...");
+    console.time("timer");
+
+    axios({
+      // 1  Event Details Page
+      // 9  Registration Report
+      url: "http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/AbGqhiAeTDeUhq5yNPENjQ?csvType=9", //your url
+      method: "GET",
+      responseType: "blob", // important
+    }).then((response) => {
+      // create file link in browser's memory
+      const href = URL.createObjectURL(response.data);
+
+      // create "a" HTLM element with href to file & click
       const link = document.createElement("a");
-      link.href = url;
+      link.href = href;
+      // link.setAttribute("download", "file.pdf"); //or any other extension
       document.body.appendChild(link);
       link.click();
+
+      // clean up "a" element & remove ObjectURL
       document.body.removeChild(link);
-    } else {
-      Toast.error("error");
-    }
+      URL.revokeObjectURL(href);
+      console.log("download finished!");
+      console.timeEnd("timer");
+    });
   };
 
-  axios({
-    url: "http://0.0.0.0:9001/api/v1/e/v/panel/control/download/csv/AbGqhiAeTDeUhq5yNPENjQ?csvType=1", //your url
-    method: "GET",
-    responseType: "blob", // important
-  }).then((response) => {
-    Toast.info({
-      content: "downloading file",
-      duration: 3000,
-      closable: true,
-    });
-    // create file link in browser's memory
-    const href = URL.createObjectURL(response.data);
-
-    // create "a" HTLM element with href to file & click
-    const link = document.createElement("a");
-    link.href = href;
-    // link.setAttribute("download", "file.pdf"); //or any other extension
-    document.body.appendChild(link);
-    link.click();
-
-    // clean up "a" element & remove ObjectURL
-    document.body.removeChild(link);
-    URL.revokeObjectURL(href);
-  });
-  return "text";
-  // return <Button>Download Csv</Button>;
+  return <Button onClick={downloadCsvFile}>Download Csv</Button>;
 };
